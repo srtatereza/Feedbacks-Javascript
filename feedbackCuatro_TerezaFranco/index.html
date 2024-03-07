@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Petición</title>
+    <style>
+        /* Estilo para centrar todo el contenido*/
+        .contenedor-central {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        /* Estilo para el botón de selección de países */
+        #paises {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #3498db;
+            cursor: pointer;
+        }
+
+        #paises:hover {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        /* Estilo para la lista de países */
+
+        .ciudades {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto; /* centra el contenedor horizontalmente */
+        }
+        #listaCiudades {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #listaCiudades li {
+            background-color: #ffd9e6;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        #listaCiudades li:hover {
+            background-color: #ff85a2;
+            color: #ffffff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor-central">
+    <!-- Se crea un selector con el nombre de los paises -->
+    <select id="paises">
+        <option value="" selected>Selecciona un país</option>
+        <option value="España">España</option>
+        <option value="México">México</option>
+        <option value="Venezuela">Venezuela</option>
+    </select>
+
+    <div class="ciudades">
+        <h2>Ciudades del país seleccionado:</h2>
+
+        <!-- Se crea una lista con las ciudades del pais seleccionado, inicialmente vacia -->
+        <ul id="listaCiudades">
+            No hay pais seleccionado.
+        </ul>
+    </div>
+</div>
+<script>
+    // Se crea una lambda para manejar la peticion HTTP
+    // Toma como argumento el nombre de un pais en formato String
+    const dameCiudades = (nombrePais) => {
+        // Se crea un objeto de tipo XMLHttpRequest
+        const peticion = new XMLHttpRequest();
+
+        // indicamos la ruta relativa de la peticion
+        const url = './listadoPaises.json';
+
+        // Abrimos la petición HTTP asíncrona, de tipo GET en la URL indicada
+        peticion.open('GET', url, true);
+
+        // Se crea un manejador de eventos para la peticion,
+        // que se dispara cuando la peticion cambia de estado
+        peticion.onreadystatechange = () => {
+            // Cuando el estado es DONE, la peticion se ha completado
+            if (peticion.readyState === XMLHttpRequest.DONE) {
+                // Se analiza el estado de la peticion
+                // Cuando es HTTP 200, la peticion ha sido correcta
+                if (peticion.status === 200) {
+
+                    // Parseamos el JSON de la respuesta, para obtener la lista de paises
+                    const datos = JSON.parse(peticion.responseText);
+
+                    // Para cada pais de la lista de paises
+                    datos.listadoPaises.pais.forEach(pais => {
+                        // Comprobamos que el nombre del pais sea el que hemos seleccionado
+                        if (pais.nombre === nombrePais) {
+                            // Si el pais es el seleccionado, limpiamos la lista de ciudades
+                            const ciudades = document.getElementById('listaCiudades');
+                            ciudades.innerHTML = ''
+
+                            // Posteriormente, recorremos la lista de ciudades de los datos
+                            // que hemos obtenido de la peticion AJAX, y lo agregamos a la lista
+                            pais.ciudades.forEach(ciudad => {
+                                // Se crea un elemento li
+                                const el = document.createElement("li")
+
+                                // Le asignamos el valor de la ciudad
+                                el.innerHTML = ciudad
+
+                                // Agregamos el elemento a la lista
+                                ciudades.appendChild(el)
+                            })
+                        }
+                    })
+                } else { // Si no es correcta, lanzamos un error por la consola
+                    console.error('Error al cargar los datos: ' + peticion.status);
+                }
+            
+            }
+        };
+
+        // Lanzamos la peticion HTTP
+        peticion.send();
+    }
+
+
+    // Se crea un manejador de eventos para el evento change en el selector con id paises
+    document.getElementById('paises').onchange = (e) => {
+        // Se Obtiene el valor del selector, que seria el nombre del pais
+        const pais = e.currentTarget.value
+
+        // Si el pais no es vacio, se llama a la funcion dameCiudades
+        // con el nombre del pais
+        if (pais !== "") {
+            dameCiudades(pais)
+        } else { // Si es vacio, se limpia la lista de ciudades
+            const ciudades = document.getElementById('listaCiudades');
+            // Se agrega el texto dentro de la lista de ciudades
+            ciudades.innerHTML = 'No hay pais seleccionado.'
+        }
+    }
+</script>
+
+</body>
+</html>

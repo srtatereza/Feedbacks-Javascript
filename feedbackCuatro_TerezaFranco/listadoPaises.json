@@ -1,0 +1,50 @@
+{
+    "listadoPaises": {
+      "pais": [
+        {
+          "nombre": "España",
+          "capital": "Madrid",
+          "textoCapital": "La mejor capital del mundo",
+          "ciudades": [
+            "Madrid",
+            "Barcelona",
+            "Valencia",
+            "Sevilla",
+            "Zaragoza",
+            "Málaga",
+            "Murcia"
+          ]
+        },
+        {
+          "nombre": "México",
+          "capital": "México D.F.",
+          "textoCapital": "La Ciudad de México, Distrito Federal o, en su forma abreviada, México, D.F., es… ",
+          "ciudades": [
+            "México D.F.",
+            "Ecatepec",
+            "Guadalajara",
+            "Puebla",
+            "Juárez",
+            "Tijuana",
+            "León",
+            "Zapopan"
+          ]
+        }, 
+        {
+            "nombre": "Venezuela",
+            "capital": "Caracas",
+            "textoCapital": "Caracas, oficialmente Santiago de León de Caracas, es la capital de la República Bolivariana de Venezuela.",
+            "ciudades": [
+              "Caracas",
+              "Maracaibo",
+              "Valencia",
+              "Barquisimeto",
+              "Maracay",
+              "Ciudad Guayana",
+              "San Cristóbal",
+              "Barinas"
+            ]
+          }
+      ]
+    }
+  }

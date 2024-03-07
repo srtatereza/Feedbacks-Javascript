@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de Imagenes</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border: 5px rgba(244, 156, 225, 0.758) solid;
+        }
+        td {
+            border: 1px solid rgba(244, 156, 225, 0.758);
+            padding: 8px;
+            text-align: center;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        button {
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(244, 156, 225, 0.758);
+        }
+        .botom {
+            margin: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+<h1>Tabla de Imagenes</h1>
+<table id="tabla">
+    <!-- Las imágenes se cargarán dinámicamente aquí -->
+</table>
+
+<div class="botom">
+    <button onclick="mostrarPares()">Imágenes Pares</button>
+    <button onclick="mostrarImpares()">Imágenes Impares</button>
+    <button onclick="mostrarTodas()">Todas las Imágenes</button>
+</div>
+<script>
+    // Evento de carga de la página
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener la tabla por id
+        const tabla = document.getElementById("tabla");
+
+        // Crear las filas y celdas con las imágenes
+
+        // Lo que determina el numero de la imagen (empieza en 1)
+        let contador = 1;
+
+        // Bucle de filas (3)
+        for (let i = 0; i < 3; i++) {
+            // Crear la fila en la tabla
+            const fila = tabla.insertRow();
+
+            // Bucle de columnas (5)
+            for (let j = 0; j < 5; j++) {
+                // Insertar la celda en la fila en la que estamos
+                const celda = fila.insertCell();
+
+                // Crea el elemento imagen
+                const imagen = document.createElement("img");
+
+                // Ruta de la imagen, por ejemplo, img/1.jpg
+                imagen.src = "img/imagen" + contador + ".jpg";
+
+                // Agrega la imagen a la celda (al final de los elementos hijos de la celda)
+                celda.appendChild(imagen);
+
+                // Incrementa el contador
+                contador++;
+            }
+        }
+    });
+
+    // Funcion que muestra las imagenes pares
+    function mostrarPares() {
+        // Obtiene todas las imagenes de la tabla en forma de lista
+        let celdas = document.querySelectorAll("#tabla img");
+
+        // Recorre la lista de imagenes
+        celdas.forEach(function(celda, indice) {
+            // Si el indice es par, mostrar la imagen, de lo contrario, ocultarla
+            // El numero de la imagen empieza en 1
+            // El par se calcula utilizando el modulo 2
+            if ((indice + 1) % 2 === 0) {
+                // La imagen se muestra en la celda
+                celda.style.display = "table-cell";
+            } else {
+                // La imagen se oculta en la celda
+                celda.style.display = "none";
+            }
+        });
+    }
+
+    function mostrarImpares() {
+        // Obtiene todas las imagenes de la tabla en forma de lista
+        let celdas = document.querySelectorAll("#tabla img");
+        // Recorre la lista de imagenes
+        celdas.forEach(function(celda, indice) {
+            // Si el indice es impar, mostrar la imagen, de lo contrario, ocultarla
+            if ((indice + 1) % 2 !== 0) {
+                // La imagen se muestra en la celda
+                celda.style.display = "table-cell";
+            } else {
+                // La imagen se oculta en la celda
+                celda.style.display = "none";
+            }
+        });
+    }
+
+    // Funcion que muestra todas las imagenes
+    function mostrarTodas() {
+        // Obtiene todas las imagenes de la tabla en forma de lista
+        let celdas = document.querySelectorAll("#tabla img");
+
+        // Recorre la lista de imagenes
+        celdas.forEach(function(celda) {
+            // La imagen se muestra en la celda
+            celda.style.display = "table-cell";
+        })
+    }
+</script>
+
+</body>
+</html>

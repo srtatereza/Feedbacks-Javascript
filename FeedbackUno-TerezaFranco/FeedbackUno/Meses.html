@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Meses del año</title>
+</head>
+
+<body>
+    <script>
+        // Solicita un número entre 1 y 12.
+        const numero = prompt("introduce un numero")
+
+        // Si el número está entre 1 y 12. 
+        if (numero >= 1 && numero <= 12) {
+            // Creo un array segun el número de días de cada mes.
+            const meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            //Obtengo el numero de dias del mes seleccionado.
+            const dias = meses[numero - 1]
+            // Informo al usuario de cuántos dias hay en el mes seleccioando.
+            alert("Hay " + dias + " dias en este mes")
+            // En caso contrario, informo al usuario que el número no está entre 1 y 12
+        } else {
+            alert("El número debe estar entre 1 y 12.")
+        }
+    </script>
+</body>
+
+</html>
